@@ -18,24 +18,36 @@
 
   ── Por que não é um texto fixo ─────────────────────────────────────────
 
-  O mesmo endereço recebe TRÊS desfechos diferentes, e o que os separa não
-  chega ao servidor: vem no fragmento da URL (depois do #), que o navegador
-  nunca envia. Só dá para distinguir aqui, no cliente.
+  O mesmo endereço recebe desfechos diferentes, e o que os separa nem
+  sempre chega ao servidor: parte vem no fragmento da URL (depois do #),
+  que o navegador nunca envia. Só dá para distinguir aqui, no cliente.
 
-    1. #access_token=…&type=signup   → confirmou.
-    2. #error=…&error_code=…         → link expirado ou já usado.
-    3. sem fragmento                 → alguém abriu o endereço direto.
+    1. ?code=…                       → confirmou (fluxo PKCE).
+    2. #access_token=…&type=signup   → confirmou (fluxo implícito).
+    3. #error=… ou ?error=…          → link expirado ou já usado.
+    4. nada disso                    → não dá para afirmar nada.
 
   Uma página que dissesse "confirmado" sempre mentiria justamente no caso
-  2 — que é quando o usuário mais precisa entender o que houve, porque
+  3 — que é quando o usuário mais precisa entender o que houve, porque
   existe uma ação a tomar (pedir outro e-mail).
 
-  ── Sobre os tokens no endereço ─────────────────────────────────────────
+  O caso 1 é o que vale para este app e foi o que a primeira versão desta
+  página errou: `src/data/supabase.ts` define `flowType: 'pkce'`, e no
+  PKCE o Supabase devolve `?code=` na QUERY STRING — sem access_token e
+  sem type. A página só procurava pelas chaves do fluxo implícito, então
+  uma confirmação bem-sucedida caía no caso 4 e não dizia nada.
 
-  O desfecho 1 traz access_token e refresh_token no fragmento. Esta página
-  não os usa para nada: quem faz login é o app, com e-mail e senha. Então
-  eles são apagados do endereço logo na entrada, para não ficarem no
-  histórico do navegador nem em algum "compartilhar esta página".
+  ── Sobre o code e os tokens no endereço ────────────────────────────────
+
+  Nada disso é usado aqui. O `code` do PKCE só pode ser trocado por sessão
+  por quem guardou o `code_verifier` — o app, no armazenamento do celular.
+  Um navegador qualquer não conseguiria, e nem precisa: a confirmação do
+  e-mail já aconteceu no servidor, antes deste redirecionamento. Quem faz
+  login é o app, com e-mail e senha.
+
+  Por isso `code` e tokens são apagados do endereço logo na entrada, para
+  não ficarem no histórico do navegador nem em algum "compartilhar esta
+  página".
 
   ── Manutenção ──────────────────────────────────────────────────────────
 
@@ -126,6 +138,15 @@
   .ok    { color: var(--verde); }
   .aviso { color: var(--ambar); }
 
+  .diagnostico {
+    margin-top: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--texto-3);
+    word-break: break-all;
+  }
+
   /* Enquanto o script não classificou o desfecho, nada aparece — meio
      segundo de tela vazia é melhor que meio segundo de mensagem errada. */
   [hidden] { display: none !important; }
@@ -183,14 +204,37 @@
     </p>
   </section>
 
-  <!-- 3 ─ Abriu o endereço direto ───────────────────────────────────── -->
+  <!-- 4 ─ Não deu para afirmar nada ─────────────────────────────────── -->
+  <!--
+    Fallback deliberadamente otimista. Quem chega aqui ou abriu o endereço
+    direto (e não perde nada com o texto), ou veio do e-mail num formato
+    que não soubemos ler — e nesse caso a confirmação provavelmente
+    funcionou, porque o servidor valida ANTES de redirecionar. Mandar essa
+    pessoa tentar entrar no app custa um toque; mandá-la refazer o
+    cadastro por precaução custa um e-mail novo e a sensação de que algo
+    quebrou.
+  -->
   <section id="neutro" hidden>
     <h1>ProTrain</h1>
     <p>
-      Esta página só tem serventia quando aberta pelo link do e-mail de
-      confirmação de cadastro.
+      Esta página é o destino do link de confirmação de cadastro.
+    </p>
+    <p class="destaque">
+      Se você chegou por aquele e-mail, pode tentar entrar no app
+      normalmente.
     </p>
     <p class="rodape">Para treinar, use o aplicativo.</p>
+    <!--
+      Só aparece quando algo chegou na URL e não soubemos ler. Existe para
+      um print de celular responder "o que o Supabase mandou?" sem precisar
+      de ninguém com o navegador aberto no computador — foi exatamente o
+      que faltou quando o fluxo PKCE quebrou esta página.
+
+      Valores truncados: para o diagnóstico o que importa são os NOMES das
+      chaves. O conteúdo delas não precisa ir para a tela nem para um print
+      que circula por aí.
+    -->
+    <p class="diagnostico" id="diagnostico" hidden></p>
   </section>
 </main>
 
@@ -204,8 +248,10 @@
   function valor(chave) { return frag.get(chave) || busca.get(chave); }
 
   var erro = valor('error') || valor('error_code');
-  var token = valor('access_token');
-  var tipo = valor('type');
+
+  // `code` é o fluxo PKCE (o que este app usa); `access_token` é o
+  // implícito. `type=signup` sozinho cobre variações que mandam só isso.
+  var confirmou = valor('code') || valor('access_token') || valor('type');
 
   var alvo;
 
@@ -223,13 +269,30 @@
       document.getElementById('falha-motivo').textContent =
         'O link já tinha sido usado uma vez.';
     }
-  } else if (token || tipo) {
+  } else if (confirmou) {
     alvo = 'sucesso';
   } else {
     alvo = 'neutro';
   }
 
   document.getElementById(alvo).hidden = false;
+
+  // Só no caso sem resposta: mostra QUE chaves chegaram, truncando os
+  // valores. Nomes bastam para diagnosticar; conteúdo não precisa ir para
+  // a tela.
+  if (alvo === 'neutro') {
+    var chaves = [];
+    [['?', busca], ['#', frag]].forEach(function (par) {
+      par[1].forEach(function (v, k) {
+        chaves.push(par[0] + k + '=' + (v.length > 10 ? v.slice(0, 10) + '…' : v));
+      });
+    });
+    if (chaves.length) {
+      var caixa = document.getElementById('diagnostico');
+      caixa.textContent = 'recebido: ' + chaves.join('  ');
+      caixa.hidden = false;
+    }
+  }
 
   // Tira tokens e códigos do endereço visível. `replaceState` troca a
   // entrada atual do histórico, então o botão "voltar" também não os
