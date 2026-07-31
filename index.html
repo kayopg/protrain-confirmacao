@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<title>ProTrain — confirmação de cadastro</title>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  PÁGINA DE POUSO DA CONFIRMAÇÃO DE E-MAIL                            ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+
+  Para onde o link do e-mail de cadastro joga o usuário depois que o
+  Supabase valida o token. Configurada em Authentication → URL
+  Configuration → Site URL.
+
+  ── Por que não é um texto fixo ─────────────────────────────────────────
+
+  O mesmo endereço recebe TRÊS desfechos diferentes, e o que os separa não
+  chega ao servidor: vem no fragmento da URL (depois do #), que o navegador
+  nunca envia. Só dá para distinguir aqui, no cliente.
+
+    1. #access_token=…&type=signup   → confirmou.
+    2. #error=…&error_code=…         → link expirado ou já usado.
+    3. sem fragmento                 → alguém abriu o endereço direto.
+
+  Uma página que dissesse "confirmado" sempre mentiria justamente no caso
+  2 — que é quando o usuário mais precisa entender o que houve, porque
+  existe uma ação a tomar (pedir outro e-mail).
+
+  ── Sobre os tokens no endereço ─────────────────────────────────────────
+
+  O desfecho 1 traz access_token e refresh_token no fragmento. Esta página
+  não os usa para nada: quem faz login é o app, com e-mail e senha. Então
+  eles são apagados do endereço logo na entrada, para não ficarem no
+  histórico do navegador nem em algum "compartilhar esta página".
+
+  ── Manutenção ──────────────────────────────────────────────────────────
+
+  Arquivo único de propósito: sem CSS externo, sem fonte remota, sem JS de
+  terceiros. Abre instantâneo em rede ruim de celular, que é onde ele será
+  aberto na prática.
+-->
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --fundo: #121316;
+    --superficie: #1B1D21;
+    --borda: #2B2E34;
+    --texto: #F2F3F5;
+    --texto-2: #A8ADB7;
+    --texto-3: #6E747F;
+    --laranja: #FF6A2E;
+    --verde: #3DD68C;
+    --ambar: #F5B544;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    /* Respeita o recorte da tela em celular com notch. */
+    padding: max(24px, env(safe-area-inset-top))
+             max(24px, env(safe-area-inset-right))
+             max(24px, env(safe-area-inset-bottom))
+             max(24px, env(safe-area-inset-left));
+  }
+
+  .cartao {
+    width: 100%;
+    max-width: 400px;
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    padding: 36px 28px 30px;
+    text-align: center;
+  }
+
+  .marca { width: 60px; height: 60px; display: block; margin: 0 auto 22px; }
+
+  .selo {
+    width: 52px; height: 52px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 2px solid currentColor;
+  }
+  .selo svg { width: 26px; height: 26px; }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: 23px;
+    line-height: 1.25;
+    letter-spacing: -0.2px;
+    font-weight: 700;
+  }
+
+  p { margin: 0 0 14px; font-size: 15px; color: var(--texto-2); }
+  p:last-child { margin-bottom: 0; }
+
+  .destaque { color: var(--texto); font-weight: 600; }
+
+  .rodape {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--borda);
+    font-size: 13px;
+    color: var(--texto-3);
+  }
+
+  .ok    { color: var(--verde); }
+  .aviso { color: var(--ambar); }
+
+  /* Enquanto o script não classificou o desfecho, nada aparece — meio
+     segundo de tela vazia é melhor que meio segundo de mensagem errada. */
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<main class="cartao">
+  <svg class="marca" viewBox="0 0 48 48" role="img" aria-label="ProTrain">
+    <defs>
+      <linearGradient id="marca" x1="0.1" y1="0" x2="0.9" y2="1">
+        <stop offset="0" stop-color="#FFA24D"/>
+        <stop offset="0.55" stop-color="#FF6A2E"/>
+        <stop offset="1" stop-color="#D93B1D"/>
+      </linearGradient>
+    </defs>
+    <path d="M10 43 V13 h8.5 a8.5 8.5 0 0 1 0 17 H10" stroke="url(#marca)"
+          stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 33 C24 31 32 23 38 11" stroke="url(#marca)" stroke-width="5"
+          stroke-linecap="round" fill="none"/>
+    <path d="M43 5 L41 19 L28.5 7 Z" fill="url(#marca)"/>
+  </svg>
+
+  <!-- 1 ─ Confirmou ─────────────────────────────────────────────────── -->
+  <section id="sucesso" hidden>
+    <div class="selo ok">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12.5 L9.5 18 L20 6"/>
+      </svg>
+    </div>
+    <h1>Cadastro confirmado</h1>
+    <p>Seu e-mail foi verificado. A conta já está pronta para uso.</p>
+    <p class="destaque">Volte ao ProTrain e entre com seu e-mail e senha.</p>
+    <p class="rodape">Pode fechar esta página.</p>
+  </section>
+
+  <!-- 2 ─ Link expirado ou já usado ─────────────────────────────────── -->
+  <section id="falha" hidden>
+    <div class="selo aviso">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+           stroke-linecap="round" aria-hidden="true">
+        <path d="M12 6 V13.5"/><path d="M12 18 V18.01"/>
+      </svg>
+    </div>
+    <h1>Este link não vale mais</h1>
+    <p id="falha-motivo">O link expirou ou já tinha sido usado.</p>
+    <p class="destaque">
+      Abra o ProTrain e faça o cadastro de novo com o mesmo e-mail para
+      receber um link novo.
+    </p>
+    <p class="rodape">
+      Se você já tinha confirmado antes, está tudo certo — é só entrar
+      normalmente no app.
+    </p>
+  </section>
+
+  <!-- 3 ─ Abriu o endereço direto ───────────────────────────────────── -->
+  <section id="neutro" hidden>
+    <h1>ProTrain</h1>
+    <p>
+      Esta página só tem serventia quando aberta pelo link do e-mail de
+      confirmação de cadastro.
+    </p>
+    <p class="rodape">Para treinar, use o aplicativo.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  // O Supabase manda o desfecho no fragmento; algumas rotas de erro usam a
+  // query string. Ler os dois evita cair no caso neutro por engano.
+  var frag = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var busca = new URLSearchParams(location.search);
+
+  function valor(chave) { return frag.get(chave) || busca.get(chave); }
+
+  var erro = valor('error') || valor('error_code');
+  var token = valor('access_token');
+  var tipo = valor('type');
+
+  var alvo;
+
+  if (erro) {
+    alvo = 'falha';
+
+    // `error_description` vem em inglês e com "+" no lugar de espaço.
+    // Traduzimos o caso comum (link vencido) e, para o resto, ficamos com
+    // o texto padrão em vez de mostrar inglês cru para a família.
+    var codigo = (valor('error_code') || '').toLowerCase();
+    if (codigo === 'otp_expired') {
+      document.getElementById('falha-motivo').textContent =
+        'O link de confirmação venceu. Eles valem por tempo limitado.';
+    } else if (codigo === 'access_denied') {
+      document.getElementById('falha-motivo').textContent =
+        'O link já tinha sido usado uma vez.';
+    }
+  } else if (token || tipo) {
+    alvo = 'sucesso';
+  } else {
+    alvo = 'neutro';
+  }
+
+  document.getElementById(alvo).hidden = false;
+
+  // Tira tokens e códigos do endereço visível. `replaceState` troca a
+  // entrada atual do histórico, então o botão "voltar" também não os
+  // recupera.
+  if (location.hash || location.search) {
+    history.replaceState(null, '', location.pathname);
+  }
+})();
+</script>
+
+</body>
+</html>
