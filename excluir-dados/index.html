@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>ProTrain — Excluir meus dados</title>
+
+<!--
+  Página de solicitação de exclusão de dados.
+
+  Exigida pelo Google Play para quem permite criar conta: precisa existir um
+  caminho ACESSÍVEL POR NAVEGADOR, porque quem já desinstalou o app não
+  alcança mais o botão interno.
+
+  O conteúdo espelha, item por item, o que a função `excluir_minha_conta` faz
+  no banco (supabase/migrations/20260801100000). Se aquela função mudar, esta
+  página muda junto — descrever exclusão de forma diferente do que o código
+  executa é o pior tipo de erro que uma página destas pode ter.
+
+  ⚠ ANTES DE PUBLICAR: trocar CONTATO_AQUI pelo e-mail de contato.
+-->
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --fundo: #121316; --superficie: #1B1D21; --borda: #2B2E34;
+    --texto: #F2F3F5; --texto-2: #A8ADB7; --texto-3: #6E747F;
+    --laranja: #FF6A2E; --verde: #3DD68C;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .folha {
+    max-width: 720px; margin: 0 auto;
+    padding: max(28px, env(safe-area-inset-top)) 22px max(48px, env(safe-area-inset-bottom));
+  }
+  header { display: flex; align-items: center; gap: 12px; }
+  header svg { width: 38px; height: 38px; flex: none; }
+  h1 { font-size: 25px; line-height: 1.25; margin: 18px 0 10px; }
+  h2 {
+    font-size: 17px; margin: 32px 0 8px; padding-top: 18px;
+    border-top: 1px solid var(--borda);
+  }
+  p, li { color: var(--texto-2); font-size: 15px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--texto); }
+  a { color: var(--laranja); }
+  .caixa {
+    background: var(--superficie); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 16px 18px; margin: 16px 0;
+  }
+  .caixa h3 { margin: 0 0 8px; font-size: 15px; }
+  .caixa p:last-child, .caixa ul:last-child { margin-bottom: 0; }
+  .some h3 { color: var(--laranja); }
+  .fica h3 { color: var(--verde); }
+  .passos { counter-reset: p; list-style: none; padding-left: 0; }
+  .passos li {
+    counter-increment: p; position: relative; padding-left: 34px; margin-bottom: 10px;
+  }
+  .passos li::before {
+    content: counter(p); position: absolute; left: 0; top: 1px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--laranja); color: #fff;
+    font-size: 12px; font-weight: 700; display: grid; place-items: center;
+  }
+  footer {
+    margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--borda);
+    color: var(--texto-3); font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<main class="folha">
+
+<header>
+  <svg viewBox="0 0 48 48" role="img" aria-label="ProTrain">
+    <defs><linearGradient id="m" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#FFA24D"/><stop offset="0.55" stop-color="#FF6A2E"/>
+      <stop offset="1" stop-color="#D93B1D"/></linearGradient></defs>
+    <path d="M10 43 V13 h8.5 a8.5 8.5 0 0 1 0 17 H10" stroke="url(#m)" stroke-width="6"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 33 C24 31 32 23 38 11" stroke="url(#m)" stroke-width="5"
+          stroke-linecap="round" fill="none"/>
+    <path d="M43 5 L41 19 L28.5 7 Z" fill="url(#m)"/>
+  </svg>
+  <strong>ProTrain</strong>
+</header>
+
+<h1>Excluir minha conta e meus dados</h1>
+
+<p>
+  A exclusão é imediata e não tem desfazer. Vale a pena ler o que some antes de
+  seguir.
+</p>
+
+<h2>Se você ainda tem o aplicativo</h2>
+<p>É o caminho mais rápido e não depende de ninguém:</p>
+<ol class="passos">
+  <li>Abra o ProTrain e vá até a aba <strong>Ajustes</strong>.</li>
+  <li>Role até o fim e toque em <strong>Excluir minha conta</strong>.</li>
+  <li>Leia o resumo do que será apagado.</li>
+  <li>Digite <strong>EXCLUIR</strong> para confirmar.</li>
+</ol>
+<p>Pronto. Nada fica pendente de aprovação.</p>
+
+<h2>Se você já desinstalou</h2>
+<p>
+  Escreva para <strong>CONTATO_AQUI</strong> a partir do
+  <strong>mesmo e-mail cadastrado na conta</strong>, com o assunto
+  "Excluir minha conta do ProTrain".
+</p>
+<p>
+  O e-mail de origem é o que permite confirmar que o pedido é seu — sem isso não
+  há como distinguir você de alguém pedindo a exclusão da sua conta. O
+  processamento acontece em <strong>até 30 dias</strong>, normalmente muito
+  antes.
+</p>
+
+<h2>O que exatamente é apagado</h2>
+
+<div class="caixa some">
+  <h3>Removido para sempre</h3>
+  <ul>
+    <li>Sua conta de acesso (e-mail e senha).</li>
+    <li>Seu perfil: nome e cor.</li>
+    <li>Todos os seus treinos.</li>
+    <li>Todo o seu histórico: cada sessão, cada série, cada carga registrada.</li>
+    <li>Sua associação à família.</li>
+  </ul>
+</div>
+
+<div class="caixa fica">
+  <h3>Permanece, e por quê</h3>
+  <ul>
+    <li>
+      <strong>Os dados dos outros membros da família.</strong> Sua saída não pode
+      apagar o histórico de quem fica. Se você for a última pessoa, a família é
+      excluída junto.
+    </li>
+    <li>
+      <strong>Exercícios que você cadastrou no catálogo.</strong> Não são dado
+      pessoal — "Supino Reto" não identifica ninguém — e o histórico dos outros
+      membros aponta para eles. A autoria, essa sim, é desvinculada de você.
+    </li>
+    <li>
+      <strong>Playlists cadastradas.</strong> Pertencem à família, não a uma
+      pessoa.
+    </li>
+  </ul>
+</div>
+
+<h2>Sobre cópias de segurança</h2>
+<p>
+  A exclusão é executada diretamente no banco de dados. Cópias de segurança
+  automáticas do serviço podem conter registros por até 7 dias, após os quais são
+  descartadas pelo ciclo normal de rotação. Elas não são consultadas nem
+  restauradas para uso comum.
+</p>
+
+<footer>
+  Mais detalhes em <a href="../politica-privacidade/">Política de Privacidade</a>.
+</footer>
+
+</main>
+</body>
+</html>
