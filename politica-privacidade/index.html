@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>ProTrain — Política de Privacidade</title>
+
+<!--
+  Política de privacidade do ProTrain.
+
+  Escrita a partir do que o app REALMENTE guarda (o schema em
+  supabase/migrations/), não de um modelo genérico. Modelo genérico costuma
+  prometer menos do que se faz num item e mais do que se faz noutro — e é a
+  segunda parte que vira problema.
+
+  ⚠ ANTES DE PUBLICAR: trocar CONTATO_AQUI pelo e-mail de contato. Loja
+  nenhuma aceita política sem canal de contato, e deixar em branco é pior
+  que não ter página.
+-->
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --fundo: #121316; --superficie: #1B1D21; --borda: #2B2E34;
+    --texto: #F2F3F5; --texto-2: #A8ADB7; --texto-3: #6E747F; --laranja: #FF6A2E;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .folha {
+    max-width: 720px; margin: 0 auto;
+    padding: max(28px, env(safe-area-inset-top)) 22px max(48px, env(safe-area-inset-bottom));
+  }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  header svg { width: 38px; height: 38px; flex: none; }
+  h1 { font-size: 25px; line-height: 1.25; margin: 18px 0 4px; }
+  h2 {
+    font-size: 17px; margin: 34px 0 8px; padding-top: 18px;
+    border-top: 1px solid var(--borda);
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  p, li { color: var(--texto-2); font-size: 15px; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--texto); }
+  .data { color: var(--texto-3); font-size: 13px; margin-bottom: 4px; }
+  .destaque {
+    background: var(--superficie); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 14px 16px; margin: 16px 0;
+  }
+  .destaque p:last-child { margin-bottom: 0; }
+  a { color: var(--laranja); }
+  footer {
+    margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--borda);
+    color: var(--texto-3); font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<main class="folha">
+
+<header>
+  <svg viewBox="0 0 48 48" role="img" aria-label="ProTrain">
+    <defs><linearGradient id="m" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#FFA24D"/><stop offset="0.55" stop-color="#FF6A2E"/>
+      <stop offset="1" stop-color="#D93B1D"/></linearGradient></defs>
+    <path d="M10 43 V13 h8.5 a8.5 8.5 0 0 1 0 17 H10" stroke="url(#m)" stroke-width="6"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 33 C24 31 32 23 38 11" stroke="url(#m)" stroke-width="5"
+          stroke-linecap="round" fill="none"/>
+    <path d="M43 5 L41 19 L28.5 7 Z" fill="url(#m)"/>
+  </svg>
+  <strong>ProTrain</strong>
+</header>
+
+<h1>Política de Privacidade</h1>
+<p class="data">Vigente desde 3 de agosto de 2026.</p>
+
+<p>
+  O ProTrain é um aplicativo para registrar treinos de academia e acompanhar a
+  progressão de carga. Esta política explica, em português claro, o que ele
+  guarda e o que não guarda.
+</p>
+
+<div class="destaque">
+  <p>
+    <strong>O resumo:</strong> o ProTrain guarda apenas o necessário para o app
+    funcionar — sua conta, seu perfil e seus treinos. Não há publicidade, não há
+    rastreamento, não há análise de comportamento, e nada é vendido ou
+    compartilhado com terceiros.
+  </p>
+</div>
+
+<h2>Quem é responsável</h2>
+<p>
+  O ProTrain é mantido de forma independente, sem empresa por trás. Para
+  qualquer assunto relacionado a esta política ou aos seus dados, o contato é
+  <strong>CONTATO_AQUI</strong>.
+</p>
+
+<h2>O que o aplicativo guarda</h2>
+
+<p><strong>Para identificar você</strong></p>
+<ul>
+  <li>Endereço de e-mail e senha (a senha é guardada apenas como hash, nunca em texto).</li>
+  <li>Se você entrar com o Google, o e-mail e o nome vindos daquela conta.</li>
+</ul>
+
+<p><strong>Para o app funcionar</strong></p>
+<ul>
+  <li>O nome do seu perfil e a cor associada a ele.</li>
+  <li>O nome da sua família e o código de convite dela.</li>
+  <li>Seus treinos: nome, foco, exercícios e séries planejadas.</li>
+  <li>
+    Seu histórico: data, horário, duração e, para cada série,
+    a carga e as repetições que você registrou.
+  </li>
+  <li>Playlists do Spotify que a família cadastrar — apenas o nome e o
+      identificador público da playlist.</li>
+</ul>
+
+<p><strong>No próprio aparelho, sem sair dele</strong></p>
+<ul>
+  <li>Sua preferência de tema (claro/escuro e cor de destaque).</li>
+  <li>Treinos ainda não enviados, quando você finaliza sem internet.</li>
+  <li>O treino em andamento, para você poder sair do app e voltar.</li>
+</ul>
+
+<h2>O que o aplicativo NÃO faz</h2>
+<ul>
+  <li>Não acessa localização, contatos, fotos, microfone ou câmera.</li>
+  <li>Não usa ferramentas de análise, métricas de uso ou rastreamento.</li>
+  <li>Não exibe publicidade nem compartilha dados com anunciantes.</li>
+  <li>Não vende, aluga ou cede seus dados a ninguém.</li>
+  <li>Não coleta dados de saúde do aparelho (passos, batimentos, sono).</li>
+</ul>
+
+<h2>Quem vê o quê dentro da família</h2>
+<p>
+  Uma família no ProTrain é um grupo que compartilha um código de convite. Entre
+  os membros:
+</p>
+<ul>
+  <li><strong>Visível para todos:</strong> o nome e a cor de cada pessoa, o nome
+      da família e as playlists cadastradas.</li>
+  <li><strong>Só seu:</strong> seus treinos e todo o seu histórico de cargas.
+      Nenhum outro membro consegue ver, registrar ou apagar treino que não seja
+      o próprio — isso é garantido no banco de dados, não apenas na tela.</li>
+</ul>
+
+<h2>Onde os dados ficam</h2>
+<p>
+  Os dados ficam no <strong>Supabase</strong>, serviço de banco de dados que
+  atua como operador. O acesso é restrito por regras no próprio banco, de forma
+  que cada conta só alcança os dados a que tem direito.
+</p>
+<p>
+  A ligação com o Spotify é apenas um link: tocar em "abrir no Spotify" abre o
+  aplicativo ou o site deles. O ProTrain não envia nenhuma informação sua ao
+  Spotify e não lê nada da sua conta lá.
+</p>
+
+<h2>Por quanto tempo</h2>
+<p>
+  Enquanto sua conta existir. Quando você a exclui, os dados são removidos na
+  hora — não há período de retenção nem cópia guardada "por precaução".
+</p>
+
+<h2>Seus direitos</h2>
+<p>
+  Você pode, a qualquer momento e sem pedir autorização a ninguém:
+</p>
+<ul>
+  <li><strong>Ver</strong> tudo que está registrado, pelas abas Histórico e
+      Evolução.</li>
+  <li><strong>Apagar</strong> um treino específico do histórico.</li>
+  <li><strong>Excluir a conta inteira</strong>, em Ajustes → Excluir minha
+      conta.</li>
+</ul>
+<p>
+  Os detalhes do que é apagado, e do que permanece, estão na
+  <a href="../excluir-dados/">página de exclusão de dados</a>.
+</p>
+
+<h2>Crianças</h2>
+<p>
+  O ProTrain é destinado a maiores de 18 anos e não é direcionado a crianças.
+  Não há coleta intencional de dados de menores de idade.
+</p>
+
+<h2>Mudanças nesta política</h2>
+<p>
+  Se algo mudar, a data no topo desta página muda junto. Alterações que afetem
+  o que é coletado serão comunicadas dentro do próprio aplicativo.
+</p>
+
+<footer>
+  ProTrain · progressão de treino, sem enrolação
+</footer>
+
+</main>
+</body>
+</html>
