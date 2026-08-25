@@ -14,9 +14,13 @@
   prometer menos do que se faz num item e mais do que se faz noutro — e é a
   segunda parte que vira problema.
 
-  ⚠ ANTES DE PUBLICAR: trocar arimanoelgomes@gmail.com pelo e-mail de contato. Loja
-  nenhuma aceita política sem canal de contato, e deixar em branco é pior
-  que não ter página.
+  Atualizada em 25/08/2026: academia, medições corporais, foto de perfil,
+  inteligência artificial e bloqueio por biometria. As duas primeiras já
+  existiam no app e faltavam aqui; as três últimas chegam no próximo build.
+
+  Regra que vale para toda edição futura: esta página descreve o que o app
+  FAZ. Quando uma funcionalidade nova mexer no que sai do aparelho, ela entra
+  aqui ANTES de o build chegar às pessoas, não depois.
 -->
 
 <style>
@@ -79,7 +83,7 @@
 </header>
 
 <h1>Política de Privacidade</h1>
-<p class="data">Vigente desde 3 de agosto de 2026.</p>
+<p class="data">Vigente desde 25 de agosto de 2026.</p>
 
 <p>
   O ProTrain é um aplicativo para registrar treinos de academia e acompanhar a
@@ -90,9 +94,11 @@
 <div class="destaque">
   <p>
     <strong>O resumo:</strong> o ProTrain guarda apenas o necessário para o app
-    funcionar — sua conta, seu perfil e seus treinos. Não há publicidade, não há
-    rastreamento, não há análise de comportamento, e nada é vendido ou
-    compartilhado com terceiros.
+    funcionar — sua conta, seu perfil, seus treinos e, se você registrar, suas
+    medições corporais. Não há publicidade, não há rastreamento, não há análise
+    de comportamento, e nada é vendido nem entregue a ninguém para uso próprio.
+    Os serviços que o app usa para funcionar estão listados em
+    <a href="#onde">Onde os dados ficam</a>.
   </p>
 </div>
 
@@ -122,7 +128,22 @@
   </li>
   <li>Playlists do Spotify que a família cadastrar — apenas o nome e o
       identificador público da playlist.</li>
+  <li>Uma foto de perfil, <strong>se</strong> você escolher colocar uma. É
+      opcional; sem ela o app mostra a inicial do seu nome.</li>
 </ul>
+
+<p><strong>Se você registrar medições corporais</strong></p>
+<p>
+  A aba de medições é opcional e começa vazia. Se você usá-la, o app guarda os
+  valores que forem digitados — por você ou pela sua academia: peso, altura,
+  idade, percentual de gordura, massa magra, água, massa óssea, dobras
+  cutâneas, circunferências e diâmetros ósseos, cada um com a data da medição.
+</p>
+<p>
+  <strong>São dados sobre o seu corpo, e o app trata como tal.</strong> Eles
+  não saem para lugar nenhum além do que está descrito nesta política, e são
+  apagados junto com a conta.
+</p>
 
 <p><strong>No próprio aparelho, sem sair dele</strong></p>
 <ul>
@@ -133,10 +154,16 @@
 
 <h2>O que o aplicativo NÃO faz</h2>
 <ul>
-  <li>Não acessa localização, contatos, fotos, microfone ou câmera.</li>
+  <li>Não acessa localização, contatos nem microfone.</li>
+  <li>Só abre suas fotos ou a câmera quando você toca em "adicionar foto" no
+      perfil, e só recebe a imagem que você escolher — o app não enxerga o
+      resto da sua galeria.</li>
   <li>Não usa ferramentas de análise, métricas de uso ou rastreamento.</li>
   <li>Não exibe publicidade nem compartilha dados com anunciantes.</li>
-  <li>Não vende, aluga ou cede seus dados a ninguém.</li>
+  <li>Não vende nem aluga seus dados, e não os entrega a ninguém para uso
+      próprio.</li>
+  <li>Não publica nada em rede social. A imagem que o app gera ao fim do
+      treino é montada no seu aparelho e só vai para onde você mandar.</li>
   <li>Não coleta dados de saúde do aparelho (passos, batimentos, sono).</li>
 </ul>
 
@@ -146,18 +173,60 @@
   os membros:
 </p>
 <ul>
-  <li><strong>Visível para todos:</strong> o nome e a cor de cada pessoa, o nome
-      da família e as playlists cadastradas.</li>
-  <li><strong>Só seu:</strong> seus treinos e todo o seu histórico de cargas.
-      Nenhum outro membro consegue ver, registrar ou apagar treino que não seja
-      o próprio — isso é garantido no banco de dados, não apenas na tela.</li>
+  <li><strong>Visível para todos:</strong> o nome, a cor e a foto de perfil de
+      cada pessoa, o nome da família e as playlists cadastradas.</li>
+  <li><strong>Só seu:</strong> seus treinos, todo o seu histórico de cargas e
+      suas medições corporais. Nenhum outro membro consegue ver, registrar ou
+      apagar o que não seja o próprio — isso é garantido no banco de dados, não
+      apenas na tela.</li>
 </ul>
 
-<h2>Onde os dados ficam</h2>
+<h2>Se você é aluno de uma academia</h2>
+<p>
+  O vínculo com uma academia é criado pela própria academia e pode ser
+  encerrado. Enquanto você é aluno <strong>ativo</strong> dela, a equipe:
+</p>
+<ul>
+  <li><strong>Vê</strong> seu nome, sua foto de perfil, os treinos que ela
+      mesma prescreveu para você, e suas medições corporais.</li>
+  <li><strong>Vê a carga atual</strong> de cada série — o número mais recente,
+      e só ele.</li>
+  <li><strong>Não vê o seu histórico de treinos.</strong> As datas em que você
+      treinou, quanto tempo levou e como sua carga evoluiu não são acessíveis
+      a ela. Isso não é uma escolha de tela: a academia não tem permissão
+      nenhuma sobre essas tabelas no banco de dados.</li>
+  <li><strong>Não vê os treinos que são seus</strong>, os que você criou por
+      conta própria ou recebeu de outra academia.</li>
+  <li><strong>Não altera nada seu.</strong> Ela <em>propõe</em> um treino e
+      você aceita ou recusa. Nenhum treino entra na sua lista sem você tocar
+      em aceitar.</li>
+</ul>
+<p>
+  A exceção é a medição que a própria academia registrou: ela pode corrigir ou
+  apagar o que ela mesma anotou, e só isso. O que você registrou é seu.
+</p>
+<p>
+  Quando o vínculo é encerrado, o acesso da academia acaba no mesmo instante.
+  Seus treinos e suas medições continuam com você.
+</p>
+
+<h2 id="onde">Onde os dados ficam</h2>
 <p>
   Os dados ficam no <strong>Supabase</strong>, serviço de banco de dados que
   atua como operador. O acesso é restrito por regras no próprio banco, de forma
   que cada conta só alcança os dados a que tem direito.
+</p>
+<p>
+  <strong>Sua foto de perfil</strong>, se você colocar uma, fica num espaço
+  fechado do mesmo Supabase: não existe endereço público para ela, e cada
+  exibição usa um link temporário que expira em uma hora. Vê quem já vê seu
+  nome — você, sua família, e a academia onde você é aluno ativo.
+</p>
+<p>
+  <strong>A Anthropic</strong> processa as perguntas dos recursos de
+  inteligência artificial, também como operadora, e apenas quando você usa um
+  deles. O que é enviado está descrito em
+  <a href="#ia">Inteligência artificial</a>.
 </p>
 <p>
   A ligação com o Spotify é apenas um link: tocar em "abrir no Spotify" abre o
@@ -165,10 +234,67 @@
   Spotify e não lê nada da sua conta lá.
 </p>
 
+<h2 id="ia">Inteligência artificial</h2>
+<p>
+  O ProTrain tem quatro recursos de IA: sugerir a carga da próxima série,
+  montar um treino a partir do seu objetivo, explicar um exercício, e descrever
+  a evolução das suas medições corporais.
+</p>
+
+<div class="destaque">
+  <p>
+    <strong>Nenhum deles funciona sozinho.</strong> Todos acontecem só quando
+    você toca no botão. Se você nunca tocar, nada seu sai do aplicativo por
+    causa de IA.
+  </p>
+</div>
+
+<p><strong>O que é enviado</strong></p>
+<p>
+  Apenas números, datas e nomes de exercício — o histórico daquela série, ou os
+  valores daquela medição. <strong>Seu nome, seu e-mail, o identificador da sua
+  conta, sua família e sua academia não são enviados.</strong> Quem recebe a
+  pergunta não tem como saber de quem é o corpo.
+</p>
+
+<p><strong>Quem recebe</strong></p>
+<p>
+  A Anthropic, que processa a pergunta e devolve o texto, atuando como
+  operadora — igual ao Supabase. Ela recebe apenas o que está descrito acima e
+  não usa esse conteúdo para treinar modelos. A chave de acesso fica num
+  servidor, nunca dentro do aplicativo instalado no seu aparelho. Cada recurso
+  tem um limite de uso por dia, por pessoa.
+</p>
+
+<p><strong>O que a IA não faz</strong></p>
+<ul>
+  <li>Não dá conselho médico e não fala sobre lesão, dor ou tratamento.</li>
+  <li>Não avalia o seu corpo. A descrição das medições diz o que mudou entre
+      uma medição e outra — nunca se a mudança foi boa, ruim ou saudável,
+      porque isso depende de um objetivo que só você conhece.</li>
+  <li>Não decide nada por você. Sugestão de carga é sugestão, e ela só entra no
+      campo se você tocar em "aplicar". Treino montado por IA fica como
+      proposta até você salvar.</li>
+</ul>
+
+<h2>Bloqueio por biometria</h2>
+<p>
+  Você pode exigir digital, rosto ou a senha do aparelho para abrir o ProTrain.
+  A verificação é feita pelo próprio aparelho: <strong>o aplicativo nunca vê
+  nem guarda sua digital</strong>, apenas recebe um "sim" ou "não" do sistema.
+</p>
+<p>
+  A escolha vale só naquele aparelho e serve para proteger a tela de quem pegar
+  seu celular. Ela não protege a sua conta — quem souber sua senha continua
+  entrando de qualquer lugar.
+</p>
+
 <h2>Por quanto tempo</h2>
 <p>
   Enquanto sua conta existir. Quando você a exclui, os dados são removidos na
-  hora — não há período de retenção nem cópia guardada "por precaução".
+  hora — não há período de retenção nem cópia guardada "por precaução". Isso
+  inclui seus treinos, seu histórico de cargas, suas medições corporais e o
+  arquivo da sua foto de perfil.
 </p>
 
 <h2>Seus direitos</h2>
@@ -187,10 +313,22 @@
   <a href="../excluir-dados/">página de exclusão de dados</a>.
 </p>
 
-<h2>Crianças</h2>
+<h2>Idade mínima</h2>
 <p>
-  O ProTrain é destinado a maiores de 18 anos e não é direcionado a crianças.
-  Não há coleta intencional de dados de menores de idade.
+  <strong>O ProTrain é destinado a maiores de 18 anos.</strong> Não é
+  direcionado a crianças nem a adolescentes, e não há coleta intencional de
+  dados de menores de idade.
+</p>
+<p>
+  A regra vale para <strong>todas</strong> as formas de entrada, inclusive
+  entrar numa família por código de convite: cada pessoa cadastrada precisa ser
+  maior de 18 anos, e quem convida é responsável por isso.
+</p>
+<p>
+  A exigência existe principalmente por causa das medições corporais, que são
+  dados sobre o corpo de quem os registra. Se soubermos que uma conta é de
+  menor de idade, ela será excluída. Se você é responsável e identificou uma
+  conta assim, escreva para o e-mail no topo desta página.
 </p>
 
 <h2>Mudanças nesta política</h2>
